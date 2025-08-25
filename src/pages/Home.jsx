@@ -12,12 +12,12 @@ export default function Home() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const productRes = await axios.get("http://localhost:3000/api/products", {
+        const productRes = await axios.get("https://crud-api-backend-72qv.onrender.com/api/products", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProducts(productRes.data);
 
-        const userRes = await axios.get("http://localhost:3000/api/products/me", {
+        const userRes = await axios.get("https://crud-api-backend-72qv.onrender.com/api/products/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(userRes.data);

@@ -9,7 +9,7 @@ export default function VerifyEmail() {
 
   const handleSendOtp = async () => {
     try {
-      const res = await axios.post("http://localhost:3000/api/verify/send", { email });
+      const res = await axios.post("https://crud-api-backend-72qv.onrender.com/api/verify/send", { email });
       setMessage(res.data.message);
 
       if (res.data.message === "OTP sent successfully") {
@@ -27,7 +27,7 @@ export default function VerifyEmail() {
 
   const handleVerifyOtp = async () => {
     try {
-      const res = await axios.post("http://localhost:3000/api/verify/verify", { email, otp });
+      const res = await axios.post("https://crud-api-backend-72qv.onrender.com/api/verify/verify", { email, otp });
       setMessage(res.data.message);
       setOtpSent(false);
     } catch (err) {
