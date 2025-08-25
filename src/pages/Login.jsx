@@ -11,8 +11,8 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {login
-      const res = await axios.post("https://crud-api-backend-72qv.onrender.com/auth/login", {
+    try {
+      const res = await axios.post("https://crud-api-backend-72qv.onrender.com/auth/", {
         email,
         password,
       });
