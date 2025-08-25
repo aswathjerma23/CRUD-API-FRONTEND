@@ -12,6 +12,7 @@ export default function App() {
         <Route path="/" element={<Login />} />
         <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </Router>
   );

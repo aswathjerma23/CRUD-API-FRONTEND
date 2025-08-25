@@ -19,7 +19,7 @@ export default function Login() {
       );
       console.log(res.data);
       localStorage.setItem("token", res.data.token);
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || "Login failed");
