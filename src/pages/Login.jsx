@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import "./css/login.css"
+import "./css/login.css"; // adjust path if needed
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -12,13 +12,16 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://crud-api-backend-72qv.onrender.com/auth/login", {
-        email,
-        password,
-      });
+      console.log("Logging in with:", { email, password });
+      const res = await axios.post(
+        "https://crud-api-backend-72qv.onrender.com/auth/login",
+        { email, password }
+      );
+      console.log(res.data);
       localStorage.setItem("token", res.data.token);
       navigate("/");
     } catch (err) {
+      console.error(err);
       setError(err.response?.data?.message || "Login failed");
     }
   };
@@ -50,7 +53,7 @@ export default function Login() {
           <button type="submit">Login</button>
         </form>
         <p>
-          Don't have an account? <Link to="/register">Create here</Link>
+          {"Don't have an account? "} <Link to="/register">Create here</Link>
         </p>
       </div>
     </div>
