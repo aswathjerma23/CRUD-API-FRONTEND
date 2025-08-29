@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./css/verifyemail.css"; 
 
 export default function VerifyEmail() {
   const [email, setEmail] = useState("");
@@ -11,12 +12,10 @@ export default function VerifyEmail() {
     try {
       const res = await axios.post("https://crud-api-backend-72qv.onrender.com/api/verify/send", { email });
       setMessage(res.data.message);
-
       if (res.data.message === "OTP sent successfully") {
         setOtpSent(true);
       }
     } catch (err) {
-      console.error(err);
       const msg = err.response?.data?.message || "Failed to send OTP";
       setMessage(msg);
       if (msg === "User aldready verified") {
@@ -31,53 +30,48 @@ export default function VerifyEmail() {
       setMessage(res.data.message);
       setOtpSent(false);
     } catch (err) {
-      console.error(err);
       setMessage(err.response?.data?.message || "Verification failed");
     }
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "50px auto", textAlign: "center" }}>
-      <h2>Email Verification</h2>
-      {message && <p style={{ color: "green" }}>{message}</p>}
+    <div className="verify-container">
+      <div className="verify-card">
+        <h2>Email Verification</h2>
+        {message && (
+          <p className={message.includes("success") ? "success" : "error"}>
+            {message}
+          </p>
+        )}
 
-      {!otpSent && (
-        <div style={{ marginBottom: "10px" }}>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{ width: "100%", padding: "8px" }}
-          />
-          <button
-            onClick={handleSendOtp}
-            style={{ marginTop: "10px", padding: "10px 20px" }}
-          >
-            Send OTP
-          </button>
-        </div>
-      )}
+        {!otpSent && (
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button onClick={handleSendOtp} className="btn">
+              Send OTP
+            </button>
+          </div>
+        )}
 
-      {otpSent && (
-        <div>
-          <div style={{ marginBottom: "10px" }}>
+        {otpSent && (
+          <div className="form-group">
             <label>OTP:</label>
             <input
               type="text"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
-              style={{ width: "100%", padding: "8px" }}
             />
+            <button onClick={handleVerifyOtp} className="btn">
+              Verify Email
+            </button>
           </div>
-          <button
-            onClick={handleVerifyOtp}
-            style={{ padding: "10px 20px" }}
-          >
-            Verify Email
-          </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
